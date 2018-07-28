@@ -14,13 +14,23 @@ Word.prototype.show = function() {
     for ( var i=0; i<this.letters.length; i++ ){
         tmp.push( this.letters[i].toString() );
     }
-    return tmp.join(' ');
+    return console.log( tmp.join(' ') );
 }
 
 Word.prototype.guessLetter = function( letter ) {
     var guessed = false;
     for ( var i=0; i<this.letters.length; i++) {
-        guessed = ( this.letters[i].guess( letter ) || guessed );
+        if ( !this.letters[i].guessed ) {
+            guessed = ( this.letters[i].guess( letter ) || guessed );
+        } 
+    }
+    return guessed;
+}
+
+Word.prototype.guessed = function() {
+    var guessed = true;
+    for ( var i=0; i<this.letters.length; i++ ) {
+        guessed = ( this.letters[i].guessed && guessed );
     }
     return guessed;
 }
